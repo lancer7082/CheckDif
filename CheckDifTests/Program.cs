@@ -4,12 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace CheckDif
 {
-    class TestDb
+    class Program
     {
-        public async void TestGetObjects()
+
+        public static async void TestGetObjects()
         {
             DbObjects dbo = new DbObjects();
             Console.WriteLine("Starting search...");
@@ -19,75 +21,50 @@ namespace CheckDif
 
             Console.WriteLine("After search");
         }
-    }
 
-    class Program
-    {
-        private static List<String> GetObjectsFromFile(string fileName)
+        public static async void TestFiles()
         {
-            StreamReader reader = File.OpenText(fileName);
-            string line;
-            char[] delimiters = { ' ', ',', /*'.',*/ '\t', '\n' };
-            List<String> objects = new List<String>();
-            while ((line = reader.ReadLine()) != null)
-            {
-                //System.Console.WriteLine(line);
-                if (
-                    (line.ToUpper().IndexOf("ALTER") >= 0) ||
-                    (line.ToUpper().IndexOf("CREATE") >= 0)
-                   )
-                {
-                    string[] items = line.Split(delimiters);
-                    string item;
-                    for (int i = 0; i < items.Length; i++)
-                    {
-                        item = items[i];
-                        //System.Console.WriteLine(item);
-                        if (
-                            (item.ToUpper() == "ALTER") ||
-                            (item.ToUpper() == "CREATE")
-                           )
-                        {
-                            if ((i++ < item.Length) && 
-                                (
-                                    (items[i].ToUpper() == "PROCEDURE") ||
-                                    (items[i].ToUpper() == "FUNCTION")
-                                ))
-                            {
-                                if (i++ < item.Length)
-                                    objects.Add(items[i]);
-                            }
-                        }
-                    }
-                    //break;
-                }
-                //tokens.AddRange(items);
-            }
-            return objects;
-        }
+            FileObjects dbo = new FileObjects();
+            Console.WriteLine("Starting search...");
 
-        public static void TestFiles()
-        {
-            string path = @"f:\Temp\Files";
-            DirectoryInfo d = new DirectoryInfo(path);
-            FileInfo[] files = d.GetFiles("*.sql");
-            List<String> objects;
-            foreach (FileInfo f in files)
+            /*
+            //Поиск файлов, в которых содержится определение объекта
+            Task searchTask = dbo.SearchAsync(@"f:\Temp\Files", 
+                //"[sys].[sp_add_agent_parameter]"
+                "[sys].[sp_add_agent_profile]"
+                );
+            await searchTask;
+
+            Console.WriteLine("After search");
+
+            List<string> files = dbo.Files;
+            if (files != null)
             {
-                System.Console.WriteLine(f.Name);
-                objects = GetObjectsFromFile(path + @"\" + f.Name);
-                foreach (String s in objects) System.Console.WriteLine(s);
-                //break;
+                foreach (String s in files)
+                    Console.WriteLine(s);
             }
+            */
+
         }
 
         static void Main(string[] args)
         {
-            TestFiles();
-            /*
-            TestDb t = new TestDb();
-            t.TestGetObjects();
-            */
+            //string filePathWinMerge = @"c:\""Program Files (x86)""\WinMerge\WinMergeU.exe";
+            string fileName = "sp3.sql";
+            string path = @"f:\Temp\Files";
+            string objectName = "[sys].[sp_add_data_file_recover_suspect_db]";
+            //TestFiles();
+            string text = DbObjects.GetObjectText(objectName);
+            string filePathDb = path + @"\" + objectName + ".sql.db";
+            using (StreamWriter writer = new StreamWriter(filePathDb))
+            {
+                writer.Write(text);
+            }
+            String command = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) +
+                @"\WinMerge\WinMergeU.exe";
+            Console.WriteLine(command);
+            Process.Start(command, path + @"\" + fileName + " " + filePathDb);
+                
             Console.WriteLine("Press a key...");
             Console.ReadKey();
         }

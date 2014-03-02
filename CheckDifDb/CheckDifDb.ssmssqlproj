@@ -25,6 +25,12 @@
           <AssociatedConnUserName />
           <FullPath>GetObjectsByName.sql</FullPath>
         </FileNode>
+        <FileNode Name="GetObjectText.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>GetObjectText.sql</FullPath>
+        </FileNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
