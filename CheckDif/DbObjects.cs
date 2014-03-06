@@ -12,9 +12,9 @@ namespace CheckDif
 	//Поиск объектов в БД (процедуры и функции) по части названия
     public class DbObjects
     {
-        private const String cnnStr =
+        private string connStr = null;
             //@"Data Source=(localdb)\v11.0;Initial Catalog=master;Integrated Security=true;";
-            @"Server=(localdb)\v11.0;Database=master;Integrated Security=true;";
+            //@"Server=(localdb)\v11.0;Database=master;Integrated Security=true;";
 
         //public string Key {get; set; }
         //private string curKey;
@@ -24,9 +24,17 @@ namespace CheckDif
         //current objects
         private List<string> objects = null;
 
-        public List<string> Objects()
+        public List<string> Objects
         {
-            return objects;
+            get
+            {
+                return objects;
+            }
+        }
+
+        public DbObjects(string connStr)
+        {
+            this.connStr = connStr;
         }
 
         private void SearchObjects(string key)
@@ -53,7 +61,7 @@ namespace CheckDif
             if (objects == null) objects = new List<string>();
             else objects.Clear();
 
-            using (SqlConnection cnn = new SqlConnection(cnnStr))
+            using (SqlConnection cnn = new SqlConnection(connStr))
             {
                 cnn.Open();
                 String cmdStr = "select name from dbo.GetObjectsByName(@name)";
@@ -72,12 +80,12 @@ namespace CheckDif
             }
         }
 
-        public static string GetObjectText(string objectName)
+        public string GetObjectText(string objectName)
         {
             string text = null;
             if (String.IsNullOrEmpty(objectName)) return null;
 
-            using (SqlConnection cnn = new SqlConnection(cnnStr))
+            using (SqlConnection cnn = new SqlConnection(connStr))
             {
                 cnn.Open();
                 String cmdStr = "GetObjectText";

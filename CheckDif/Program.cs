@@ -3,6 +3,7 @@
 //using System.Linq;
 //using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace CheckDif
 {
@@ -11,6 +12,28 @@ namespace CheckDif
     //{
 
     //}
+
+    public class Settings
+    {
+        private static string connStr = null;
+        private static string winMergePath = null;
+
+        public static string ConnStr {
+            get { return connStr; }
+        }
+
+        static Settings() 
+        {
+            connStr = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+            winMergePath = ConfigurationManager.AppSettings["WinMergePath"];
+        }
+
+        public static string WinMergePath
+        {
+            get { return winMergePath; }
+        }
+    }
+
 
     static class Program
     {

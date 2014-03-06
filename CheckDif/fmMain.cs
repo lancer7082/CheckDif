@@ -14,15 +14,17 @@ namespace CheckDif
 {
     public partial class fmMain : Form
     {
-        DbObjects dbo = new DbObjects();
-        FileObjects fo = new FileObjects();
-        //List<string> files = null;
+        #region Const
+        //private const string CONN_STR_LOCAL = @"(localdb)\v11.0;Database=master;Integrated Security=true;";
+        #endregion
+
+        DbObjects dbo = null;
+        FileObjects fo = null;
 
         private bool lSearchInProgress = false;
         private bool lFilterFilesInProgress = false;
 
         //Stages stage = Stages.CHOOSE_PATH;
-
        // private enum Stages { CHOOSE_PATH, CHOOSE_OBJECT, SHOW_DIF };
         
         public fmMain()
@@ -30,6 +32,14 @@ namespace CheckDif
             InitializeComponent();
             cbObjects.Text = "recover";
             cbFolder.Items.Add(@"f:\Temp\Files");
+            cbConnStr.Items.Add(Settings.ConnStr);
+            cbConnStr.SelectedIndex = 0;
+            tbWinMergePath.Text = Settings.WinMergePath;
+                //Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\WinMerge\WinMergeU.exe";
+
+            dbo = new DbObjects(Settings.ConnStr);
+            fo = new FileObjects();    
+            //Settings.ConnStr = CONN_STR_LOCAL;
             //SetStage(Stages.CHOOSE_PATH);
         }
 
@@ -70,10 +80,10 @@ namespace CheckDif
             tbInfo.Text += "Search end\r\n";
 
             cbObjects.Items.Clear();
-            List<string> objects = dbo.Objects();
-            if (objects != null)
+            //List<string> objects = dbo.Objects;
+            if (dbo.Objects != null)
             {
-                foreach (String s in objects)
+                foreach (String s in dbo.Objects)
                 {
                     cbObjects.Items.Add(s);
                 }
@@ -206,7 +216,7 @@ namespace CheckDif
         //отображение расхождений
         private void ShowDif(string objectName, string path, string fileName)
         {
-            string text = DbObjects.GetObjectText(objectName);
+            string text = dbo.GetObjectText(objectName);
             string filePathDb = path + @"\" + objectName + ".sql.db";
             using (StreamWriter writer = new StreamWriter(filePathDb))
             {
@@ -214,8 +224,8 @@ namespace CheckDif
                 writer.Close();
             }
 
-            String command = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) +
-                @"\WinMerge\WinMergeU.exe";
+            String command = Settings.WinMergePath; 
+                //Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\WinMerge\WinMergeU.exe";
             Process.Start(command, path + @"\" + fileName + " " + filePathDb);
         }
 
@@ -240,6 +250,19 @@ namespace CheckDif
             }
 
             ShowDif(cbObjects.Text, cbFolder.Text, lsbFiles.SelectedItem.ToString());
+        }
+
+        private void btnPickFolder_Click(object sender, EventArgs e)
+        {
+            if (dlgPickFolder.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = dlgPickFolder.SelectedPath;
+                if (!cbFolder.Items.Contains(filePath))
+                {
+                    cbFolder.Items.Add(filePath);
+                    cbFolder.Text = filePath;
+                }
+            }
         }
     }
 }

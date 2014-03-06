@@ -13,7 +13,7 @@ namespace CheckDif
 
         public static async void TestGetObjects()
         {
-            DbObjects dbo = new DbObjects();
+            DbObjects dbo = new DbObjects("");
             Console.WriteLine("Starting search...");
 
             Task searchTask = dbo.SearchAsync("1");
@@ -50,6 +50,7 @@ namespace CheckDif
         static void Main(string[] args)
         {
             //string filePathWinMerge = @"c:\""Program Files (x86)""\WinMerge\WinMergeU.exe";
+            /*
             string fileName = "sp3.sql";
             string path = @"f:\Temp\Files";
             string objectName = "[sys].[sp_add_data_file_recover_suspect_db]";
@@ -64,7 +65,7 @@ namespace CheckDif
                 @"\WinMerge\WinMergeU.exe";
             Console.WriteLine(command);
             Process.Start(command, path + @"\" + fileName + " " + filePathDb);
-                
+            */    
             Console.WriteLine("Press a key...");
             Console.ReadKey();
         }
