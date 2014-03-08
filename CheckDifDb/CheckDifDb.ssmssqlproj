@@ -19,6 +19,54 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
+        <FileNode Name="config_db.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>config_db.sql</FullPath>
+        </FileNode>
+        <FileNode Name="config_objects.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>config_objects.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo_Test1.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>dbo_Test1.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo_Test2.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>dbo_Test2.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo_Test3.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>dbo_Test3.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo_Test4.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>dbo_Test4.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo_Test5.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>dbo_Test5.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo_Test6.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>dbo_Test6.sql</FullPath>
+        </FileNode>
         <FileNode Name="GetObjectsByName.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(localdb)\v11.0:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>(localdb)\v11.0</AssociatedConnSrvName>

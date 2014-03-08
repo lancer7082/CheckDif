@@ -141,6 +141,7 @@ namespace CheckDif
 
         private bool IsMatch(string objectNameFromFile, string objectName)
         {
+            //return objectNameFromFile.Replace("[", "").Replace("]", "").Equals(objectName.Replace("[", "").Replace("]", ""));
             return objectNameFromFile.Equals(objectName);
         }
 
@@ -173,7 +174,7 @@ namespace CheckDif
         {
             StreamReader reader = File.OpenText(fileName);
             string line;
-            char[] delimiters = { ' ', ',', /*'.',*/ '\t', '\n' };
+            char[] delimiters = { ' ', ',', /*'.',*/ '\t', '\n', ')', '(' };
             List<string> objects = new List<string>();
             while ((line = reader.ReadLine()) != null)
             {
@@ -201,7 +202,7 @@ namespace CheckDif
                                 ))
                             {
                                 if (i++ < item.Length)
-                                    objects.Add(items[i]);
+                                    objects.Add(items[i].Replace("[", "").Replace("]", ""));
                             }
                         }
                     }

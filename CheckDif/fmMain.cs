@@ -30,8 +30,9 @@ namespace CheckDif
         public fmMain()
         {
             InitializeComponent();
-            cbObjects.Text = "recover";
-            cbFolder.Items.Add(@"f:\Temp\Files");
+            cbObjects.Text = "Test";
+            cbFolder.Items.Add(@"f:\Projects\dotNet\CheckDif\CheckDifDb\");
+            //cbFolder.Items.Add(@"f:\Temp\Files");
             cbConnStr.Items.Add(Settings.ConnStr);
             cbConnStr.SelectedIndex = 0;
             tbWinMergePath.Text = Settings.WinMergePath;
@@ -254,6 +255,7 @@ namespace CheckDif
 
         private void btnPickFolder_Click(object sender, EventArgs e)
         {
+            dlgPickFolder.SelectedPath = cbFolder.Text;
             if (dlgPickFolder.ShowDialog() == DialogResult.OK)
             {
                 string filePath = dlgPickFolder.SelectedPath;

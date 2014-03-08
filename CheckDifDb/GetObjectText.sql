@@ -1,7 +1,7 @@
-use master
+use CheckDifDb
 go
 
-alter procedure dbo.GetObjectText(
+create procedure dbo.GetObjectText(
   @objectName sysname,
   @text nvarchar(max) output
 )

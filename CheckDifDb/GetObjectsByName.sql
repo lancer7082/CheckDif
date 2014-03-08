@@ -1,4 +1,4 @@
-use master
+use CheckDifDb
 go
 
 --drop function dbo.GetObjectsByName
@@ -7,13 +7,17 @@ alter function dbo.GetObjectsByName(
 )
 returns table
 as return (
-  select top 30 name = '[sys].' + '[' + o.name + ']'
-  from sys.sysobjects o
-  where o.type = 'P'
+  select top 30 
+    --name = '[' + s.name + '].[' + o.name + ']'
+    name = s.name + '.' + o.name
+  from sys.objects o
+    inner join sys.schemas s on s.schema_id = o.schema_id
+  where 
+    o.type in ('P', 'FN', 'IF')
     and o.name like '%' + @name + '%'
 )
 go
 
 return
 
-select * from dbo.GetObjectsByName('add')
+select * from dbo.GetObjectsByName('Test')
