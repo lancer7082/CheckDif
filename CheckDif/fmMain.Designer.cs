@@ -28,11 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnSearchObjects = new System.Windows.Forms.Button();
             this.tbInfo = new System.Windows.Forms.TextBox();
-            this.cbObjects = new System.Windows.Forms.ComboBox();
-            this.lsbFiles = new System.Windows.Forms.ListBox();
-            this.lbObject = new System.Windows.Forms.Label();
             this.cbFolder = new System.Windows.Forms.ComboBox();
             this.lbFolder = new System.Windows.Forms.Label();
             this.btnPickFolder = new System.Windows.Forms.Button();
@@ -49,55 +45,23 @@
             this.cbConnStr = new System.Windows.Forms.ComboBox();
             this.lbConnStr = new System.Windows.Forms.Label();
             this.dlgPickFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.lvFiles = new System.Windows.Forms.ListView();
+            this.clFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clObject = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabSettings.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnSearchObjects
-            // 
-            this.btnSearchObjects.Location = new System.Drawing.Point(328, 33);
-            this.btnSearchObjects.Name = "btnSearchObjects";
-            this.btnSearchObjects.Size = new System.Drawing.Size(75, 23);
-            this.btnSearchObjects.TabIndex = 1;
-            this.btnSearchObjects.Text = "Search";
-            this.btnSearchObjects.UseVisualStyleBackColor = true;
-            this.btnSearchObjects.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
             // tbInfo
             // 
-            this.tbInfo.Location = new System.Drawing.Point(11, 195);
+            this.tbInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbInfo.Location = new System.Drawing.Point(8, 233);
             this.tbInfo.Multiline = true;
             this.tbInfo.Name = "tbInfo";
-            this.tbInfo.Size = new System.Drawing.Size(390, 77);
+            this.tbInfo.Size = new System.Drawing.Size(579, 77);
             this.tbInfo.TabIndex = 2;
-            // 
-            // cbObjects
-            // 
-            this.cbObjects.FormattingEnabled = true;
-            this.cbObjects.Location = new System.Drawing.Point(57, 35);
-            this.cbObjects.Name = "cbObjects";
-            this.cbObjects.Size = new System.Drawing.Size(265, 21);
-            this.cbObjects.TabIndex = 3;
-            this.cbObjects.SelectedIndexChanged += new System.EventHandler(this.cbObjects_SelectedIndexChanged);
-            // 
-            // lsbFiles
-            // 
-            this.lsbFiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lsbFiles.FormattingEnabled = true;
-            this.lsbFiles.Location = new System.Drawing.Point(11, 83);
-            this.lsbFiles.Name = "lsbFiles";
-            this.lsbFiles.Size = new System.Drawing.Size(390, 106);
-            this.lsbFiles.TabIndex = 4;
-            // 
-            // lbObject
-            // 
-            this.lbObject.AutoSize = true;
-            this.lbObject.Location = new System.Drawing.Point(10, 38);
-            this.lbObject.Name = "lbObject";
-            this.lbObject.Size = new System.Drawing.Size(41, 13);
-            this.lbObject.TabIndex = 5;
-            this.lbObject.Text = "Object:";
             // 
             // cbFolder
             // 
@@ -130,7 +94,7 @@
             // lbFiles
             // 
             this.lbFiles.AutoSize = true;
-            this.lbFiles.Location = new System.Drawing.Point(8, 67);
+            this.lbFiles.Location = new System.Drawing.Point(8, 36);
             this.lbFiles.Name = "lbFiles";
             this.lbFiles.Size = new System.Drawing.Size(31, 13);
             this.lbFiles.TabIndex = 9;
@@ -138,7 +102,8 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(347, 339);
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Location = new System.Drawing.Point(527, 377);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 10;
@@ -148,7 +113,8 @@
             // 
             // btnShowDif
             // 
-            this.btnShowDif.Location = new System.Drawing.Point(8, 278);
+            this.btnShowDif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnShowDif.Location = new System.Drawing.Point(6, 316);
             this.btnShowDif.Name = "btnShowDif";
             this.btnShowDif.Size = new System.Drawing.Size(75, 23);
             this.btnShowDif.TabIndex = 11;
@@ -158,7 +124,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(164, 113);
+            this.progressBar.Location = new System.Drawing.Point(249, 136);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(100, 23);
             this.progressBar.TabIndex = 12;
@@ -166,31 +132,31 @@
             // 
             // tabControl
             // 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabMain);
             this.tabControl.Controls.Add(this.tabSettings);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(426, 333);
+            this.tabControl.Size = new System.Drawing.Size(603, 371);
             this.tabControl.TabIndex = 13;
             // 
             // tabMain
             // 
+            this.tabMain.Controls.Add(this.lvFiles);
             this.tabMain.Controls.Add(this.cbFolder);
             this.tabMain.Controls.Add(this.btnShowDif);
             this.tabMain.Controls.Add(this.progressBar);
-            this.tabMain.Controls.Add(this.btnSearchObjects);
             this.tabMain.Controls.Add(this.tbInfo);
-            this.tabMain.Controls.Add(this.cbObjects);
             this.tabMain.Controls.Add(this.lbFiles);
-            this.tabMain.Controls.Add(this.lsbFiles);
             this.tabMain.Controls.Add(this.btnPickFolder);
-            this.tabMain.Controls.Add(this.lbObject);
             this.tabMain.Controls.Add(this.lbFolder);
             this.tabMain.Location = new System.Drawing.Point(4, 22);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(418, 307);
+            this.tabMain.Size = new System.Drawing.Size(595, 345);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
             this.tabMain.UseVisualStyleBackColor = true;
@@ -205,7 +171,7 @@
             this.tabSettings.Location = new System.Drawing.Point(4, 22);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(418, 307);
+            this.tabSettings.Size = new System.Drawing.Size(595, 345);
             this.tabSettings.TabIndex = 1;
             this.tabSettings.Text = "Settings";
             this.tabSettings.UseVisualStyleBackColor = true;
@@ -256,11 +222,40 @@
             // 
             this.dlgPickFolder.ShowNewFolderButton = false;
             // 
+            // lvFiles
+            // 
+            this.lvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.clFile,
+            this.clObject});
+            this.lvFiles.FullRowSelect = true;
+            this.lvFiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvFiles.Location = new System.Drawing.Point(8, 52);
+            this.lvFiles.MultiSelect = false;
+            this.lvFiles.Name = "lvFiles";
+            this.lvFiles.Size = new System.Drawing.Size(579, 175);
+            this.lvFiles.TabIndex = 13;
+            this.lvFiles.UseCompatibleStateImageBehavior = false;
+            this.lvFiles.View = System.Windows.Forms.View.Details;
+            this.lvFiles.DoubleClick += new System.EventHandler(this.lvFiles_DoubleClick);
+            // 
+            // clFile
+            // 
+            this.clFile.Text = "File";
+            this.clFile.Width = 200;
+            // 
+            // clObject
+            // 
+            this.clObject.Text = "Object";
+            this.clObject.Width = 300;
+            // 
             // fmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 371);
+            this.ClientSize = new System.Drawing.Size(606, 403);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnClose);
             this.Name = "fmMain";
@@ -276,11 +271,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnSearchObjects;
         private System.Windows.Forms.TextBox tbInfo;
-        private System.Windows.Forms.ComboBox cbObjects;
-        private System.Windows.Forms.ListBox lsbFiles;
-        private System.Windows.Forms.Label lbObject;
         private System.Windows.Forms.ComboBox cbFolder;
         private System.Windows.Forms.Label lbFolder;
         private System.Windows.Forms.Button btnPickFolder;
@@ -297,6 +288,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbConnStr;
         private System.Windows.Forms.Label lbConnStr;
+        private System.Windows.Forms.ListView lvFiles;
+        private System.Windows.Forms.ColumnHeader clFile;
+        private System.Windows.Forms.ColumnHeader clObject;
     }
 }
 

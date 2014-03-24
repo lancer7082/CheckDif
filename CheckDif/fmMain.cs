@@ -30,7 +30,7 @@ namespace CheckDif
         public fmMain()
         {
             InitializeComponent();
-            cbObjects.Text = "Test";
+            //cbObjects.Text = "Test";
             cbFolder.Items.Add(@"f:\Projects\dotNet\CheckDif\CheckDifDb\");
             //cbFolder.Items.Add(@"f:\Temp\Files");
             cbConnStr.Items.Add(Settings.ConnStr);
@@ -57,6 +57,7 @@ namespace CheckDif
         //    tbInfo.Text += "Search end\r\n";
         //}
 
+        /*
         //Поиск объектов в БД, содержащих строку name
         private async void SearchObjectsDb(string name)
         {
@@ -90,7 +91,7 @@ namespace CheckDif
                 }
             }
         }
-
+        
         private void btnSearch_Click(object sender, EventArgs e)
         {
             if (lSearchInProgress) return;
@@ -109,9 +110,23 @@ namespace CheckDif
 
             SearchObjectsDb(cbObjects.Text);     
         }
+        */
 
         private void ShowFiles()
         {
+            lvFiles.Items.Clear();
+            if (fo.Files != null)
+            {
+                foreach (FileWithObjects f in fo.Files)
+                {
+                    var item = new ListViewItem(new[] { f.FileName, String.Join(";", f.objects.ToArray())});
+                    item.Tag = f;
+                    lvFiles.Items.Add(item);
+                    //lvFiles.Items.Add( .Items.Add(f.FileName.PadRight(20) + " | " + String.Join(";", f.objects.ToArray()));
+                }
+            }
+
+            /*
             lsbFiles.Items.Clear();
             if (fo.Files != null)
             {
@@ -120,6 +135,7 @@ namespace CheckDif
                     lsbFiles.Items.Add(f.FileName.PadRight(20) + " | " + String.Join(";", f.objects.ToArray()));
                 }
             }
+            */
         }
 
         //Заполнение списка файлов
@@ -160,6 +176,7 @@ namespace CheckDif
             Close();
         }
 
+        /*
         //Отбор файлов, содержащих объект
         private async void FilterFiles(string objectName)
         {
@@ -195,7 +212,7 @@ namespace CheckDif
                 }
             }
         }
-
+          
         private void cbObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -213,6 +230,18 @@ namespace CheckDif
 
             FilterFiles(cbObjects.Text);
         }
+        */
+
+        //отображение расхождений
+        private void ShowDif(string path, FileWithObjects fo)
+        {
+            if ((fo == null) || (fo.objects == null)) return;
+            string objectName = fo.objects.First();
+            string fileName = fo.FileName;
+
+            if (String.IsNullOrEmpty(fileName) || String.IsNullOrEmpty(objectName)) return;
+            ShowDif(objectName, path, fileName);
+        }
 
         //отображение расхождений
         private void ShowDif(string objectName, string path, string fileName)
@@ -227,7 +256,7 @@ namespace CheckDif
 
             String command = Settings.WinMergePath; 
                 //Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\WinMerge\WinMergeU.exe";
-            Process.Start(command, path + @"\" + fileName + " " + filePathDb);
+            Process.Start(command, "\"" + path + @"\" + fileName + "\"" + " " + filePathDb + "\"");
         }
 
         private void btnShowDif_Click(object sender, EventArgs e)
@@ -238,6 +267,13 @@ namespace CheckDif
                 return;
             }
 
+            if (lvFiles.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Please choose item");
+                return;
+            }
+
+            /*
             if (lsbFiles.SelectedIndex < 0)
             {
                 MessageBox.Show("Please choose file");
@@ -249,8 +285,12 @@ namespace CheckDif
                 MessageBox.Show("Please choose object");
                 return;
             }
+            */
 
-            ShowDif(cbObjects.Text, cbFolder.Text, lsbFiles.SelectedItem.ToString());
+            FileWithObjects fo = (FileWithObjects)lvFiles.SelectedItems[0].Tag;
+            ShowDif(cbFolder.Text, fo);
+
+            //ShowDif(cbObjects.Text, cbFolder.Text, lsbFiles.SelectedItem.ToString());
         }
 
         private void btnPickFolder_Click(object sender, EventArgs e)
@@ -265,6 +305,11 @@ namespace CheckDif
                     cbFolder.Text = filePath;
                 }
             }
+        }
+
+        private void lvFiles_DoubleClick(object sender, EventArgs e)
+        {
+            btnShowDif_Click(sender, e);
         }
     }
 }
